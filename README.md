@@ -1,5 +1,29 @@
 # django-cas
 
+
+<!-- vim-markdown-toc GFM -->
+
+* [django-cas](#django-cas)
+    * [Install](#install)
+        * [Add to URLs](#add-to-urls)
+        * [Add middleware and settings](#add-middleware-and-settings)
+        * [Add authentication backends](#add-authentication-backends)
+    * [How to Contribute](#how-to-contribute)
+        * [Run The Tests](#run-the-tests)
+    * [Settings.py for CAS](#settingspy-for-cas)
+* [Additional Features](#additional-features)
+    * [Proxied Hosts](#proxied-hosts)
+    * [CAS Response Callbacks](#cas-response-callbacks)
+    * [CAS Gateway](#cas-gateway)
+    * [Custom Forbidden Page](#custom-forbidden-page)
+    * [Require SSL Login](#require-ssl-login)
+    * [Automatically Create Users on First Login](#automatically-create-users-on-first-login)
+    * [Proxy Tickets](#proxy-tickets)
+
+<!-- vim-markdown-toc -->
+
+# django-cas
+
 CAS client for Django.  This library requires Django 1.5 or above, and Python 2.6, 2.7, 3.4
 
 Current version: 1.4.0
@@ -21,6 +45,7 @@ This project is registered on PyPi as django-cas-client.  To install::
 
 Add the login and logout patterns to your main URLS conf.
 
+    import cas.views
     # CAS
     url(r'^accounts/login/$', 'cas.views.login', name='login'),
     url(r'^accounts/logout/$', 'cas.views.logout', name='logout'),
@@ -30,11 +55,16 @@ Add the login and logout patterns to your main URLS conf.
 Set your CAS server URL
 
     CAS_SERVER_URL = "https://signin.somehwere/cas/"
+    # CAS 的额外参数 
+    CAS_EXTRA_LOGIN_PARAMS = {'appKey': 'xxxxxxxxxxxxxxxxxx'}
 
 Add cas to middleware classes
 
     'cas.middleware.CASMiddleware',
 
+Add cas to INSTALLED_APPS list
+
+    'cas',
 
 ### Add authentication backends
 
